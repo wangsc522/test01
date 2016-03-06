@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+   <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    
+  </head>
+  <body>
+    
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">歡迎 <%= userName %>進入點數系統,您一共有<%= point %>點 </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="/secure/logout">登出</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    
+	<form role="form" action="/secure/transfer" method="post" id="transfer" class="form-horizontal">
+		<div class="form-group">
+        <label for="replyNumber">匯入帳號</label>
+  		<select name="transAccount" class="form-control" >
+  		<option></option>
+  		<% if (jsonData.length  ) { %>
+ 		    <% jsonData.forEach(function(name){ %>
+ 		     <% if (name.userName != userName) { %>
+        	      <option><%= name.userName %></option>
+   			 <% }}) %>
+ 		<% } %>
+        </select>
+        </div>
+        <div class="form-group">
+ 			<label for="replyNumber">點數</label>
+  			<input type="number" class="form-control" id="replyNumber" min="0" max="<%= point %>" data-bind="value:replyNumber" name="transPoint"/>
+        </div>
+        <div class="form-group">
+        <div class="col-xs-5 col-xs-offset-3">
+  		    <button type="submit" class="btn btn-lg btn-primary btn-block">匯出</button>
+		</div>
+		</div>
+        
+     </form>    
+    
+
+<form  data-toggle="validator"  role="form" action="/secure/changePassword" method="post" id="changePassword" class="form-horizontal">
+<div class="form-group">
+  <label class="col-xs-3 control-label">舊密碼</label>
+  <div class="col-xs-5">
+    <input type="password" class="form-control" name="oldPwd" />
+  </div>
+</div>  
+<div class="form-group">
+  <label class="col-xs-3 control-label">新密碼</label>
+  <div class="col-xs-5">
+    <input data-minlength="6" type="password" class="form-control" name="newPwd" required>
+    <div class="help-block">Minimum of 6 characters</div>
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-xs-3 control-label">再確認</label>
+  <div class="col-xs-5">
+    <input type="password" class="form-control" name="rePwd" />
+  </div>
+</div>
+
+<div class="form-group">
+<div class="col-xs-5 col-xs-offset-3">
+  <button type="submit" class="btn btn-lg btn-primary btn-block">變更密碼</button>
+</div>
+</div>
+</form>
+
+</body>
+</html>
