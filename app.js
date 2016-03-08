@@ -182,7 +182,7 @@ app.post('/secure/transfer',function(req, res){
     }
     res.redirect('/secure/queryAccount');
 
-  });
+  }); 
 
 app.post('/testpage', function(req, res) {
     var name = req.body.user,
